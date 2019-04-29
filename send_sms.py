@@ -35,6 +35,7 @@ def get_nhl_dict():
     '''
     Requests NHL info from NHL Stats API. No API key required.
     '''
+    
     yesterday = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
     link = 'https://statsapi.web.nhl.com/api/v1/schedule/?date=' + yesterday
     resp = requests.get(link)
