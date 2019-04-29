@@ -16,8 +16,7 @@ def get_weather_dict(api_key, city_id='6176823'):
 
     parameters = {'id': city_id, 'appid': api_key, 'units': 'metric'}
 
-    resp = requests.get(
-        'https://api.openweathermap.org/data/2.5/weather', 	parameters)
+    resp = requests.get('https://api.openweathermap.org/data/2.5/weather', parameters)
     resp_json = resp.json()
     return resp_json
 
@@ -58,11 +57,9 @@ def get_nhl_message(nhl_data):
         home_loss = nhl_data['dates'][0]['games'][i]['teams']['home']['leagueRecord']['losses']
 
         if home_score > away_score:
-            message += "{} beat {} {}-{}. ".format(
-                home_team, away_team, 		home_score, away_score)
+            message += "{} beat {} {}-{}. ".format(home_team, away_team, home_score, away_score)
         else:
-            message += "{} beat {} {}-{}. ".format(
-                away_team, home_team, 		away_score, home_score)
+            message += "{} beat {} {}-{}. ".format(away_team, home_team, away_score, home_score)
 
         series = 'lead'
 
@@ -70,11 +67,9 @@ def get_nhl_message(nhl_data):
             series = 'win'
 
         if home_wins > home_loss:
-            message += "{} {} the series {}-{}. ".format(
-                home_team, series, 	home_wins, home_loss)
+            message += "{} {} the series {}-{}. ".format(home_team, series, home_wins, home_loss)
         elif home_wins != home_loss:
-            message += "{} {} the series {}-{}. ".format(
-                away_team, series, 	home_loss, home_wins)
+            message += "{} {} the series {}-{}. ".format(away_team, series, home_loss, home_wins)
         else:
             message += "The series is tied {0}-{0}. ".format(home_wins)
 
@@ -86,8 +81,7 @@ def get_nhl_message(nhl_data):
 def send_to_sms(receive_number, message, send_number, account_sid, auth_token):
 
     proxy_client = TwilioHttpClient()
-    proxy_client.session.proxies = {"http": "http://10.10.1.10:3128",
-                                    "https": "http://10.10.1.10:1080"}
+    proxy_client.session.proxies = {"http": "http://10.10.1.10:3128", "https": "http://10.10.1.10:1080"}
     client = Client(account_sid, auth_token, http_client=proxy_client)
     client.messages.create(body=message, from_=send_number, to=receive_number)
 
@@ -103,8 +97,7 @@ if __name__ == '__main__':
     my_name = 'Lucas'
     temp, city, description, wind_speed = get_weather_info(weather_data)
     my_msg += "Good Morning {}!\nThe weather in {} is {}. The current temperature" \
-        " is {} with a wind speed of {}.\n".format(
-            my_name, city, description, temp, wind_speed)
+        " is {} with a wind speed of {}.\n".format(my_name, city, description, temp, wind_speed)
 
     # NHL portion of message, get_nhl_message function returns a string with
     # message and skips weather steps due to complexity of data
