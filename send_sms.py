@@ -96,7 +96,7 @@ if __name__ == '__main__':
     account_sid = '' // Twilio account ID
     auth_token = '' // Twilio authentication token
     my_api = '' // Api key from OpenWeather
-    my_city = '6176823'
+    my_city = '' // City ID from OpenWeather
     my_msg = ''
 
     # Weather portion of message
@@ -112,7 +112,7 @@ if __name__ == '__main__':
     nhl_data = get_nhl_dict()
     my_msg += get_nhl_message(nhl_data)
 
-    recipient = '+19053175331'
-    sender = '+12262418717'
+    recipient = '' // Your number
+    sender = '' // Verified number from Twilio
     print(my_msg)
     send_to_sms(recipient, my_msg, sender, account_sid, auth_token)
